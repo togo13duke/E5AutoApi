@@ -2,9 +2,9 @@ name: Update Token
 
 on: 
   push:
-    branches: ["main"]
+    branches: ["master"]
   pull_request:
-    branches: ["main"]
+    branches: ["master"]
   schedule:
     - cron: '10 10 * * 1,4,6'
   watch:
