@@ -15,11 +15,25 @@ jobs:
     steps:
     - name: Checkout
       uses: actions/checkout@master
-    - name: Install requests and nacl
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12' 
+    
+    - name: Create virtual environment
+      run: python -m venv venv
+
+    - name: Activate virtual environment and install dependencies
+      shell: bash
       run: |
+        source venv/bin/activate
+        pip install --upgrade pip
         pip install requests
         pip install PyNaCl
+        
     - name: update secrets
+      shell: bash
       env: 
         GH_TOKEN: ${{ secrets.GH_TOKEN }} 
         GH_REPO: ${{ github.repository }}
@@ -43,4 +57,5 @@ jobs:
         CLIENT_ID_n: ${{ secrets.CLIENT_ID_n }}
         CLIENT_SECRET_n: ${{ secrets.CLIENT_SECRET_n }}
       run: |
+        source venv/bin/activate
         python updatetoken.py
